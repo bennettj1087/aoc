@@ -1,22 +1,14 @@
 # day 01
 
+from itertools import cycle, accumulate
+
 f = open("input.txt")
 lines = f.readlines()
-freq = 0
 
 # part 1
-for line in lines:
-    freq += int(line.strip())
-print("Part 1: ", freq)
+as_ints = [int(i) for i in lines]
+print(sum(as_ints))
 
 # part 2
-freq = 0
-seen = set()
-while True:
-    for line in lines:
-        freq += int(line.strip())
-        if freq not in seen:
-            seen.add(freq)
-        else:
-            print("Part 2: ", freq)
-            exit(0)
+seen = {0}
+print(next(x for x in accumulate(cycle(as_ints)) if x in seen or seen.add(x)))
