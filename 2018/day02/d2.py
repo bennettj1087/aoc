@@ -29,3 +29,19 @@ for line in lines:
     done3 = False
 
 print(twice*thrice)
+
+# Part 2
+test = ["abcde", "fghij", "klmno", "pqrst", "fguij", "axcye", "wvxyz"]
+
+for t in lines:
+    for u in lines[1:]:
+        diff = 0
+        for x in range(0, len(t)):
+            if t[x] != u[x]:
+                diff += 1
+        if diff == 1:
+            print(t, u)
+            exit(0)
+    lines = lines[1:]
+        
+    
