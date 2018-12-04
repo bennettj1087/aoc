@@ -23,3 +23,18 @@ for id, claim in points.items():
             else:
                 grid[new_x, new_y] += 1
 print(len([k for k,v in grid.items() if v > 1]))
+
+# Part 2
+overlapped = False
+for id, (p,dim) in points.items():
+    for x in range(int(dim[0])):
+        for y in range(int(dim[1])):
+            new_x = int(p[0]) + x
+            new_y = int(p[1]) + y
+            if grid[new_x, new_y] != 1:
+                overlapped = True
+    if not overlapped:
+        print(id)
+        exit(0)
+    overlapped = False
+    
