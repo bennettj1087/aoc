@@ -1,8 +1,6 @@
 # Day 4
 
-import time
 import re
-from operator import itemgetter
 
 f = open('input.txt')
 lines = f.readlines()
