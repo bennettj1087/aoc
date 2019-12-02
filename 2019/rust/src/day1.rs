@@ -1,21 +1,43 @@
-#[aoc(day1, part1, Bytes)]
-pub fn part1_bytes(input: &[u8]) -> i32 {
-    input.iter().fold(0, |sum, c| match c {
-        b'(' => sum + 1,
-        b')' => sum - 1,
-        _ => unreachable!(),
-    })
+#[aoc(day1, part1)]
+pub fn part1(input: &str) -> i32 {
+    input.lines().map(|x| {
+        let x = x.parse::<i32>().unwrap();
+        calc_weight(x)
+    }).sum()
 }
 
-#[aoc(day1, part1, Chars)]
+#[aoc(day1, part2)]
+pub fn part2(input: &str) -> i32 {
+    input.lines().map(|x| {
+        let mut x = x.parse::<i32>().unwrap();
+        let mut tmp = calc_weight(x);
+        x = 0;
+        loop {
+            if tmp < 0 {
+                break;
+            }
+            else {
+                x += tmp;
+            }
+            tmp = calc_weight(tmp);
+        }
+        x
+    }).sum()
+}
+
+fn calc_weight(input: i32) -> i32 {
+    input / 3 - 2
+}
+
+/* #[aoc(day1, part1, Chars)]
 pub fn part1_chars(input: &str) -> i32 {
     input.chars().fold(0, |sum, c| match c {
         '(' => sum + 1,
         ')' => sum - 1,
         _ => unreachable!(),
     })
-}
-
+} */
+/* 
 #[aoc(day1, part2)]
 pub fn part2(input: &str) -> usize {
     let mut sum: u32 = 0;
@@ -33,9 +55,9 @@ pub fn part2(input: &str) -> usize {
     }
 
     unreachable!()
-}
+} */
 
-#[cfg(test)]
+/* #[cfg(test)]
 mod tests {
     use super::{part1_chars as part1, part2};
 
@@ -84,4 +106,4 @@ mod tests {
     fn sample7() {
         assert_eq!(part2("()())"), 5);
     }
-}
+} */
