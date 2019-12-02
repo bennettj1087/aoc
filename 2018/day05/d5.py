@@ -10,7 +10,8 @@ test = list("dabAcCaCBAcCcaDA")
 def react(p):
     i = 0
     while i < len(p)-1:
-        if p[i].islower() and p[i+1].lower() == p[i] and p[i+1].isupper() or p[i].isupper() and p[i+1].upper() == p[i] and p[i+1].islower():
+        if p[i].islower() and p[i+1].lower() == p[i] and p[i+1].isupper() or p[i].isupper() and p[i+1].upper() == p[i] \
+                and p[i+1].islower():
             p.pop(i)
             p.pop(i)
             i = i - 1
