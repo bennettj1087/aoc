@@ -25,6 +25,7 @@ def part_b(data):
         for field in req_fields: 
             if field not in ppt.keys():
                 valid = False
+                break
             else:
                 if field == "byr":
                     try:
@@ -73,7 +74,7 @@ def part_b(data):
                         valid = False
                         break
                 elif field == "hcl":
-                    if not re.match("^#([a-f]|[0-9]){6}i$", ppt[field]):
+                    if not re.match("^#([a-f]|[0-9]){6}$", ppt[field]):
                         valid = False
                         break
                 elif field == "ecl":
