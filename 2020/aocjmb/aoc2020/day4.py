@@ -21,75 +21,30 @@ def part_b(data):
     data = [ dict( n.split(":") for n in re.split(" |\n", x) ) for x in data.strip().split("\n\n") ]
     valid_ppts = 0
     for ppt in data:
-        valid = True
-        for field in req_fields: 
-            if field not in ppt.keys():
-                valid = False
-                break
-            else:
-                if field == "byr":
-                    try:
-                        val = int(ppt[field])
-                        if val < 1920 or val > 2002:
-                            valid = False
-                            break
-                    except ValueError:
-                        valid = False
-                        break
-                elif field == "iyr":
-                    try:
-                        val = int(ppt[field])
-                        if val < 2010 or val > 2020:
-                            valid = False
-                            break
-                    except ValueError:
-                        valid = False
-                        break
-                elif field == "eyr":
-                    try:
-                        val = int(ppt[field])
-                        if val < 2020 or val > 2030:
-                            valid = False
-                            break
-                    except ValueError:
-                        valid = False
-                        break
-                elif field == "hgt":
-                    unit = ppt[field][-2:]
-                    hgt = ppt[field][:-2]
-                    try:
-                        hgt = int(hgt)
-                        if unit == "cm":
-                            if hgt < 150 or hgt > 193:
-                                valid = False
-                                break
-                        elif unit == "in":
-                            if hgt < 59 or hgt > 76:
-                                valid = False
-                                break
-                        else:
-                            valid = False
-                            break
-                    except ValueError:
-                        valid = False
-                        break
-                elif field == "hcl":
-                    if not re.match("^#([a-f]|[0-9]){6}$", ppt[field]):
-                        valid = False
-                        break
-                elif field == "ecl":
-                    if ppt[field] not in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]:
-                        valid = False
-                        break
-                elif field == "pid":
-                    if len(ppt[field]) != 9 or not ppt[field].isnumeric():
-                        valid = False
-                        break
-        if valid:
+        if check_ppt(ppt):
             valid_ppts = valid_ppts + 1
-
     return valid_ppts
 
+def check_ppt(ppt):
+    for field in req_fields:
+        if field not in ppt.keys():
+            return False
+    for k, v in ppt.items():
+        if not passport_checks[k](v):
+            return False
+    return True
+
+
+passport_checks = {
+        'byr': lambda v : int(v) >= 1920 and int(v) <= 2002,
+        'iyr': lambda v : int(v) >= 2010 and int(v) <= 2020,
+        'eyr': lambda v : int(v) >= 2020 and int(v) <= 2030,
+        'hgt': lambda v : bool(re.match("^(1[5-8][0-9]|19[0-3])(cm)$|^(59|6[0-9]|7[0-6])(in)$", v)),
+        'hcl': lambda v : bool(re.match("^#([a-f]|[0-9]){6}$", v)),
+        'ecl': lambda v : v in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"],
+        'pid': lambda v : len(v) == 9 and v.isnumeric(),
+        'cid': lambda v : True
+        }
 
 test_data1 = """\
 ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
