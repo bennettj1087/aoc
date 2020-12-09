@@ -5,13 +5,10 @@ import re
 
 def part_a(data):
     bags = parse_data(data)
-    current_run_bags = set()
-    for bag_color, bag_contents in bags.items():
-        print("part_a:", bag_color, bag_contents)
-        current_run_bags = { bag_color }
-        base_bags.add(find_gold(bags, bag_color, current_run_bags))
+    for bag_color in bags:
+        if find_gold(bag_color, bags):
+            base_bags.add(bag_color)
 
-    print(base_bags)
     return len(base_bags)
 
 def part_b(data):
@@ -32,24 +29,29 @@ faded blue bags contain no other bags.
 dotted black bags contain no other bags.
 """
 
-def find_gold(bags, bag_color, current_run_bags):
+def find_gold(bag_color, bags):
+    print("find_gold with:", bag_color, bags[bag_color])
     if len(bags[bag_color]) == 0:
-        print("find_gold return 0")
-        return
-    else:
-        sub_total = 0
-        print("find_gold:", bags[bag_color])
-        if "shiny gold" in bags[bag_color].keys():
-            base_bags.update(current_run_bags)
-        for k,v in bags[bag_color].items():
-            print("find_gold looping on:", k, v)
-            if k in base_bags:
-                return
-            current_run_bags.add(k)
-            find_gold(bags, k, current_run_bags)
+        print("  base bag color, returning false")
+        return False
+    
+    if "shiny gold" in bags[bag_color].keys():
+        print("  shiny gold in bag, adding and returning true")
+        base_bags.add(bag_color)
+        return True
+
+    gold = False
+    print("  delving into sub bags...")
+    for color in bags[bag_color].keys():
+        gold = gold or find_gold(color, bags)
+
+    if gold:
+        print("  found shiny gold below, adding to base_bags")
+        base_bags.add(bag_color)
+    return gold
 
 def parse_data(data):
-    data = [ x for x in test_data.strip().split("\n") ]
+    data = [ x for x in data.strip().split("\n") ]
     bags = dict()
     for x in data:
         bag_color = x.split("bags")[0]
