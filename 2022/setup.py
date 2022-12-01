@@ -4,7 +4,7 @@ setup(
     name="advent-of-code-bennettj1087",
     version="0.1",
     description="bennettj1087's solutions for https://adventofcode.com/",
-    url="https://github.com/bennettj1087/advent-of-code-bennettj1087",
+    url="https://github.com/bennettj1087/aoc",
     author="Justin Bennett",
     author_email="xyz@abc.com",
     long_description=open("README.md").read(),
