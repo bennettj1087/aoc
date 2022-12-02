@@ -18,7 +18,7 @@ test_data = """\
 """
 
 if __name__ == "__main__":
-    assert part_a(test_data) == 
+    assert part_a(test_data) == None
     #assert part_b(test_data) == 
     print(part_a(data))
     #print(part_b(data))
