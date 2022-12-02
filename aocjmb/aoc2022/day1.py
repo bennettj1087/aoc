@@ -3,11 +3,11 @@ from itertools import combinations
 
 
 def part_a(data):
-    
+    print("help")
 
 
 def part_b(data):
-    
+    print("help")
 
 
 test_data = """\
