@@ -14,7 +14,7 @@ setup(
         "Topic :: Games/Entertainment :: Puzzle Games",
     ],
     install_requires=[
-        "advent-of-code-data >= 0.8.0",
+        "advent-of-code-data >= 0.8.0", "anytree", "numpy",
         # list your other requirements here, for example:
         # "numpy", "parse", "networkx",
     ],

@@ -8,9 +8,9 @@ def part_a(data):
     #return
 
 def part_b(data):
-    data = [ int(x) for x in data.strip().split("\n") ]
+    #data = [ int(x) for x in data.strip().split("\n") ]
 
-    #return 
+    return 
 
 
 test_data = """\
